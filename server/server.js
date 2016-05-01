@@ -24,6 +24,9 @@ app.use(expressValidator({
     customValidators: {
         isValidBloodGroup: function(value){ // Custom validator for blood_group
             return ['o-', 'o+', 'ab-', 'ab+', 'b-', 'b+', 'a-', 'a+'].indexOf(value.toLowerCase()) !== -1;
+        },
+        isValidCoordinate: function(value){
+            return /^-?((1?[0-7]?|[0-9]?)[0-9]|180)\.[0-9]{1,6}$/.test(value);
         }
     }
 }));
@@ -49,8 +52,19 @@ app.get('/', function(req, res){
 });
 
 app.get('/donors', function(req, res){
+    var criteria = {};
+
+    if(req.query.longitude && req.query.latitude) {
+        criteria = {
+            coordinate: {
+                '$near': [req.query.longitude, req.query.latitude],
+                '$maxDistance': 10
+            }
+        };
+    }
+
     // Get all donors
-    Donor.find({}, function(err, data){
+    Donor.find(criteria, function(err, data){
         return res.json({
             error: false,
             errors: null,
@@ -69,8 +83,8 @@ app.post('/donors', function(req, res){
         contact_number: { notEmpty: true },
         email: { notEmpty: true, isEmail: true },
         blood_group: { isValidBloodGroup: true /* Custom validator */ },
-        longitude: { notEmpty: true, isNumeric : true },
-        latitude: { notEmpty: true, isNumeric : true }
+        longitude: { notEmpty: true, isValidCoordinate : true },
+        latitude: { notEmpty: true, isValidCoordinate : true }
     });
 
     var errors = req.validationErrors(); // Validate errors
