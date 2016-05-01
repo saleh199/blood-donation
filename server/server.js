@@ -46,13 +46,20 @@ app.get('/', function(req, res){
 });
 
 app.get('/donors', function(req, res){
+    // Get all donors
     Donor.find({}, function(err, data){
-        return res.json(data);
+        return res.json({
+            error: false,
+            errors: null,
+            result: data
+        });
     });
 });
 
 // Add new donor
 app.post('/donors', function(req, res){
+
+    // Validate data
     req.checkBody({
         first_name: {
             notEmpty: true
@@ -68,15 +75,17 @@ app.post('/donors', function(req, res){
             isEmail: true
         },
         blood_group: {
-            isValidBloodGroup: true
-        }
+            isValidBloodGroup: true // Custom validation
+        },
+
     });
 
-    var errors = req.validationErrors();
+    var errors = req.validationErrors(); // Validate errors
 
     if(errors){
         res.status(400).json({
             error: true,
+            result: null,
             errors : errors
         });
         return;
@@ -84,6 +93,7 @@ app.post('/donors', function(req, res){
 
     var donor = new Donor(req.body);
 
+    // Save data
     donor.save(function(err){
         if(err) {
             return res.status(400).json(err);
