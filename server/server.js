@@ -45,8 +45,14 @@ app.get('/', function(req, res){
     // TODO send html page
 });
 
+app.get('/donors', function(req, res){
+    Donor.find({}, function(err, data){
+        return res.json(data);
+    });
+});
+
 // Add new donor
-app.post('/add', function(req, res){
+app.post('/donors', function(req, res){
     req.checkBody({
         first_name: {
             notEmpty: true
