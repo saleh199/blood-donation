@@ -64,30 +64,13 @@ app.post('/donors', function(req, res){
 
     // Validate data
     req.checkBody({
-        first_name: {
-            notEmpty: true
-        },
-        last_name: {
-            notEmpty: true
-        },
-        contact_number: {
-            notEmpty: true
-        },
-        email: {
-            notEmpty: true,
-            isEmail: true
-        },
-        blood_group: {
-            isValidBloodGroup: true // Custom validation
-        },
-        longitude: {
-            notEmpty: true,
-            isNumeric : true
-        },
-        latitude: {
-            notEmpty: true,
-            isNumeric : true
-        }
+        first_name: { notEmpty: true },
+        last_name: { notEmpty: true },
+        contact_number: { notEmpty: true },
+        email: { notEmpty: true, isEmail: true },
+        blood_group: { isValidBloodGroup: true /* Custom validator */ },
+        longitude: { notEmpty: true, isNumeric : true },
+        latitude: { notEmpty: true, isNumeric : true }
     });
 
     var errors = req.validationErrors(); // Validate errors
