@@ -10,5 +10,8 @@ var donor = mongoose.model('Donor', {
     last_name : String,
     contact_number : String,
     email : String,
-    blood_group : String
+    blood_group : String,
+    ip: String,
+    longitude : Number,
+    latitude : Number
 });
