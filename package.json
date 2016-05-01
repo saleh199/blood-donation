@@ -4,6 +4,7 @@
   "description": "Blood Donation Page",
   "main": "server/server.js",
   "scripts": {
+    "prestart": "browserify -t [ babelify ] js/app.js -o js/bundle.js",
     "start": "nodemon --watch app --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +28,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-validator": "^2.20.3",
+    "flux": "^2.1.1",
     "method-override": "^2.3.5",
     "mongoose": "^4.4.14",
     "react": "^15.0.2",
@@ -34,6 +36,8 @@
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
-    "nodemon": "^1.9.2"
+    "browserify": "^13.0.0",
+    "nodemon": "^1.9.2",
+    "reactify": "^1.1.1"
   }
 }
