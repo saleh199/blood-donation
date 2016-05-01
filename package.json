@@ -22,6 +22,7 @@
   "homepage": "https://github.com/saleh199/blood-donation#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "mongoose": "^4.4.14",
     "socket.io": "^1.4.5"
   }
 }
