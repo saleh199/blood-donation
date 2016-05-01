@@ -46,11 +46,6 @@ db.once('open', function(){
     console.log('MongoDB connected to : ' + db_uri);
 });
 
-// Single Page Application
-app.get('/', function(req, res){
-    // TODO send html page
-});
-
 app.get('/donors', function(req, res){
     var criteria = {};
 
