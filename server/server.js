@@ -27,6 +27,7 @@ app.use(expressValidator({
         }
     }
 }));
+app.enable('trust proxy'); // Enable trust proxy
 
 var Donor = mongoose.model('Donor');
 
@@ -79,7 +80,14 @@ app.post('/donors', function(req, res){
         blood_group: {
             isValidBloodGroup: true // Custom validation
         },
-
+        longitude: {
+            notEmpty: true,
+            isNumeric : true
+        },
+        latitude: {
+            notEmpty: true,
+            isNumeric : true
+        }
     });
 
     var errors = req.validationErrors(); // Validate errors
@@ -93,7 +101,14 @@ app.post('/donors', function(req, res){
         return;
     }
 
-    var donor = new Donor(req.body);
+    var donorData = req.body;
+    donorData.ip = req.ip;
+    donorData.coordinate = [donorData.longitude, donorData.latitude];
+
+    delete donorData.longitude;
+    delete donorData.latitude;
+
+    var donor = new Donor(donorData);
 
     // Save data
     donor.save(function(err){
