@@ -9,6 +9,7 @@ var socket = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var expressValidator = require('express-validator');
+var util = require('util');
 var mongoose = require('mongoose');
 require('./schema/donor');
 
@@ -17,7 +18,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(methodOverride());
-app.use(expressValidator());
+app.use(expressValidator({
+    customValidators: {
+        isValidBloodGroup: function(value){
+            return ['o-', 'o+', 'ab-', 'ab+', 'b-', 'b+', 'a-', 'a+'].indexOf(value.toLowerCase()) !== -1;
+        }
+    }
+}));
 
 var Donor = mongoose.model('Donor');
 
@@ -40,6 +47,35 @@ app.get('/', function(req, res){
 
 // Add new donor
 app.post('/add', function(req, res){
+    req.checkBody({
+        first_name: {
+            notEmpty: true
+        },
+        last_name: {
+            notEmpty: true
+        },
+        contact_number: {
+            notEmpty: true
+        },
+        email: {
+            notEmpty: true,
+            isEmail: true
+        },
+        blood_group: {
+            isValidBloodGroup: true
+        }
+    });
+
+    var errors = req.validationErrors();
+
+    if(errors){
+        res.status(400).json({
+            error: true,
+            errors : errors
+        });
+        return;
+    }
+
     var donor = new Donor(req.body);
 
     donor.save(function(err){
@@ -49,7 +85,8 @@ app.post('/add', function(req, res){
 
         return res.json({
             error: false,
-            result: donor
+            result: donor,
+            errors: []
         });
     });
 });
