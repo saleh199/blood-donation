@@ -6,10 +6,12 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var socket = require('socket.io')(server);
+
+// Express middleware
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var expressValidator = require('express-validator');
-var util = require('util');
+
 var mongoose = require('mongoose');
 require('./schema/donor');
 
@@ -20,7 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride());
 app.use(expressValidator({
     customValidators: {
-        isValidBloodGroup: function(value){
+        isValidBloodGroup: function(value){ // Custom validator for blood_group
             return ['o-', 'o+', 'ab-', 'ab+', 'b-', 'b+', 'a-', 'a+'].indexOf(value.toLowerCase()) !== -1;
         }
     }

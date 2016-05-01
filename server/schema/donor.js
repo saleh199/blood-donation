@@ -4,16 +4,11 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var donor = mongoose.model('Donor', {
-    first_name: {
-        type: String,
-        required: true
-    },
-    last_name: {
-        type: String,
-        required: true
-    },
+var schema = new Schema({
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
     contact_number: {
         type: String,
         validate: {
@@ -22,21 +17,10 @@ var donor = mongoose.model('Donor', {
             }
         }
     },
-    email: {
-        type: String,
-        required: true
-    },
-    blood_group: {
-        type: String,
-        required: true
-    },
-    ip: String,
-    longitude: {
-        type: Number,
-        required: true
-    },
-    latitude: {
-        type: Number,
-        required: true
-    }
+    email: { type: String, required: true },
+    blood_group: { type: String, required: true },
+    ip: { type: String, required: true },
+    coordinate: { type: [Number], index: '2dsphere' }
 });
+
+mongoose.model('Donor', schema);
