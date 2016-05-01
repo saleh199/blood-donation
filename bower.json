@@ -1,0 +1,25 @@
+{
+  "name": "blood-donation",
+  "description": "Blood Donation Page",
+  "main": "server/server.js",
+  "authors": [
+    "Saleh Saeed"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "blood",
+    "donation"
+  ],
+  "homepage": "https://github.com/saleh199/blood-donation",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^0.14.0",
+    "babel-polyfill": "^0.0.1"
+  }
+}

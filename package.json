@@ -4,7 +4,7 @@
   "description": "Blood Donation Page",
   "main": "server/server.js",
   "scripts": {
-    "start": "nodemon --watch app --watch server",
+    "start": "nodemon --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
