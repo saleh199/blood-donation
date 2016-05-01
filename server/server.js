@@ -20,6 +20,16 @@ db.once('open', function(){
     console.log('MongoDB connected to : ' + db_uri);
 });
 
+// Single Page Application
+app.get('/', function(req, res){
+    // TODO send html page
+});
+
+// Add new post
+app.post('/add', function(req, res){
+    
+});
+
 /**
  * Get port from environment and store in Express.
  */
