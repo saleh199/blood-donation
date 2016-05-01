@@ -22,11 +22,15 @@
   },
   "homepage": "https://github.com/saleh199/blood-donation#readme",
   "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-validator": "^2.20.3",
     "method-override": "^2.3.5",
     "mongoose": "^4.4.14",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
