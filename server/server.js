@@ -3,12 +3,9 @@
  */
 'use strict';
 
-var express = require('express');
-var http = require('http');
-
-var app = express();
-
-var server = http.createServer(app);
+var app = require('express')();
+var server = require('http').Server(app);
+var socket = require('socket.io')(server);
 
 /**
  * Get port from environment and store in Express.
