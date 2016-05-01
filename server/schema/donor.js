@@ -20,7 +20,7 @@ var schema = new Schema({
     email: { type: String, required: true },
     blood_group: { type: String, required: true },
     ip: { type: String, required: true },
-    coordinate: { type: [Number], index: '2dsphere' }
+    coordinate: { type: [Number], index: '2d' }
 });
 
 mongoose.model('Donor', schema);
