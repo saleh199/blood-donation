@@ -6,7 +6,20 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var socket = require('socket.io')(server);
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var expressValidator = require('express-validator');
 var mongoose = require('mongoose');
+require('./schema/donor');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(methodOverride());
+app.use(expressValidator());
+
+var Donor = mongoose.model('Donor');
 
 /**
  * DB connection
@@ -25,9 +38,20 @@ app.get('/', function(req, res){
     // TODO send html page
 });
 
-// Add new post
+// Add new donor
 app.post('/add', function(req, res){
-    
+    var donor = new Donor(req.body);
+
+    donor.save(function(err){
+        if(err) {
+            return res.status(400).json(err);
+        }
+
+        return res.json({
+            error: false,
+            result: donor
+        });
+    });
 });
 
 /**

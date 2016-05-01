@@ -18,7 +18,7 @@ var donor = mongoose.model('Donor', {
         type: String,
         validate: {
             validator: function(value) {
-                return /(\+|0{2})+([0-9]{2})+(([0-9]+)|\s+([0-9]{3}\s[0-9]{4}\s[0-9]{3}))/g.text(value);
+                return /(\+|0{2})+([0-9]{2})+(([0-9]{10})|\s+([0-9]{3}\s[0-9]{4}\s[0-9]{3}))/g.test(value);
             }
         }
     },
@@ -31,6 +31,12 @@ var donor = mongoose.model('Donor', {
         required: true
     },
     ip: String,
-    longitude: Number,
-    latitude: Number
+    longitude: {
+        type: Number,
+        required: true
+    },
+    latitude: {
+        type: Number,
+        required: true
+    }
 });

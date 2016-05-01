@@ -4,7 +4,7 @@
   "description": "Blood Donation Page",
   "main": "server/server.js",
   "scripts": {
-    "start": "nodemon --watch app --watch server/server.js",
+    "start": "nodemon --watch app --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/saleh199/blood-donation#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "express-validator": "^2.20.3",
+    "method-override": "^2.3.5"
   },
   "devDependencies": {
     "nodemon": "^1.9.2"
